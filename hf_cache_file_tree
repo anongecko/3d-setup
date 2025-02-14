@@ -1,0 +1,140 @@
+.
+├── hub
+│   ├── models--tencent--Hunyuan3D-2
+│   │   ├── blobs
+│   │   │   ├── 00fda1dc914c0b085459d824ed20bc5cbf1233e7
+│   │   │   ├── 074ecb05f60c224f79e35e294ce847a7b77511c355fbcd57d3e82aa253eeb320
+│   │   │   ├── 0ce61d15a43d11ba19079ab8f24dfce78b876d3f5291470079ef64b17e08ca58
+│   │   │   ├── 0fa07f924dabbf7517dc62af845cd31573bc09e3
+│   │   │   ├── 0feff0c6123794ba0d72e0a746075169dee66e86bce69193a99601cbfc3147a9
+│   │   │   ├── 1b4889b6b1d4ce7ae320a02dedaeff1780ad77d415ea0d744b476155c6377ddc
+│   │   │   ├── 1c5ce434ba976b30bbb51a080917ecd39f8d8761691887b5df3be765ef4bd9e9
+│   │   │   ├── 2bb8ea736ccf5a5dcec6c8aa5d2ea12c32ec1fd1
+│   │   │   ├── 2efb4438e649e1ce152822dde082defe062cdd320bb9f1a27b9a4715d9c56e1a
+│   │   │   ├── 2f76d0d3f6e71b71c80b3d5e062506e79c476157
+│   │   │   ├── 305f80397ec06965b84fa1b6c12682a84b8f873d
+│   │   │   ├── 360bc281fc956d4acac0c3d36d5ec0ebf8cdddbf4b8892e894d12419388d479b
+│   │   │   ├── 39c2a6bf54f5674f2001b763d8e15b773fbda24604b3911544d09846496bc972
+│   │   │   ├── 3e2d05cdff18d85e17e23bc67d638fc36e9fec28
+│   │   │   ├── 3e4c08995484ee61270175e9e7a072b66a6e4eeb5f0c266667fe1f45b90daf9a
+│   │   │   ├── 409049cd3ba0c477d4ef85e82b03fb7d642cecabe8a44c5824818a435ed166d1
+│   │   │   ├── 469be27c5c010538f845f518c4f5e8574c78f7c8
+│   │   │   ├── 46b31e722102553206fe3b5d12000eb82e6b3548
+│   │   │   ├── 51910f2ab85038d984d1fd30ab965a063bf9c4d0
+│   │   │   ├── 51ebc3e380ae2c59b0bdafd7d7fe618e5ff7b8b7
+│   │   │   ├── 5294955ff7801083f720b34b55d0f1f51313c5c5
+│   │   │   ├── 62393f4f028edeccc229fdf6c421866bbd9eb18d
+│   │   │   ├── 65d055d1103982d6ba7cf1c5c876a9413077daf5
+│   │   │   ├── 6c582fdb3f6560b70418d1166a8024640a49f162b6969e03dc1a54ad196a837c
+│   │   │   ├── 76e821f1b6f0a9709293c3b6b51ed90980b3166b
+│   │   │   ├── 7b38a34f393ff023b56c18a0fffec186018a4c5ef8f275250698c27123035474
+│   │   │   ├── 8d1412e50d46389d40b29f824034ff4ba4f973ca
+│   │   │   ├── 9421ac5a7caf02657fa559cffe7c73a47572cd64
+│   │   │   ├── 9458056e37210d887a3088a181994de9f1625ac4
+│   │   │   ├── 9deac73e728652dfa5e2b73833401dcf659cce9d15a9150a52d8aac62c91e4c9
+│   │   │   ├── a6344aac8c09253b3b630fb776ae94478aa0275b
+│   │   │   ├── abcec86e499e1ce9f05d1630725d386dc533b61fe0947ab034f07f89042e7a61
+│   │   │   ├── ae0c5be6f35217e51c4c000fd325d8de0294e99c
+│   │   │   ├── bc1827c465450322616f06dea41596eac7d493f4e95904dcb51f0fc745c4e13f
+│   │   │   ├── bd2abe19377557ff5771584921f9b65fa041fef0
+│   │   │   ├── c3e254d7b61353497ea0be2c4013df4ea8f739ee88cffa0ba58cd085459ed565
+│   │   │   ├── c5f3fb60380d78f4860c3dd057a1ce99882a3365
+│   │   │   ├── d10df9be332265887c69d94bf69bd8cb90eddba7
+│   │   │   ├── d41e4dd1c7c732b4b3bd3cd62994a3342e4d1757
+│   │   │   ├── e02234d9704824b109ffe3625aa9b8b94dad2d55
+│   │   │   ├── e2cca4b978fc3b95f8431fec292c2c289d8e1515
+│   │   │   ├── eaf8780e3c90b1af01a8574bf8596a9acebe6858
+│   │   │   ├── f9ac7c0b3b341525cd1b65e1a715128fee97b25c
+│   │   │   ├── fb1692ff11ed6b3dee0634f577193bb23c0d37ec
+│   │   │   └── fcf91f29922270b4cce5f266099b306c6e140f2a2382a81fc5e47752d4d41e85
+│   │   ├── refs
+│   │   │   └── main
+│   │   └── snapshots
+│   │       └── 4871c308210c5a6b9f691af01aa0c1250db2cc2c
+│   │           ├── LICENSE -> ../../blobs/46b31e722102553206fe3b5d12000eb82e6b3548
+│   │           ├── NOTICE -> ../../blobs/e02234d9704824b109ffe3625aa9b8b94dad2d55
+│   │           ├── README.md -> ../../blobs/51ebc3e380ae2c59b0bdafd7d7fe618e5ff7b8b7
+│   │           ├── assets
+│   │           │   ├── demo.png -> ../../../blobs/00fda1dc914c0b085459d824ed20bc5cbf1233e7
+│   │           │   └── images
+│   │           │       ├── arch.jpg -> ../../../../blobs/409049cd3ba0c477d4ef85e82b03fb7d642cecabe8a44c5824818a435ed166d1
+│   │           │       ├── e2e-1.gif -> ../../../../blobs/6c582fdb3f6560b70418d1166a8024640a49f162b6969e03dc1a54ad196a837c
+│   │           │       ├── e2e-2.gif -> ../../../../blobs/074ecb05f60c224f79e35e294ce847a7b77511c355fbcd57d3e82aa253eeb320
+│   │           │       ├── system.jpg -> ../../../../blobs/7b38a34f393ff023b56c18a0fffec186018a4c5ef8f275250698c27123035474
+│   │           │       └── teaser.jpg -> ../../../../blobs/9deac73e728652dfa5e2b73833401dcf659cce9d15a9150a52d8aac62c91e4c9
+│   │           ├── config.json -> ../../blobs/51910f2ab85038d984d1fd30ab965a063bf9c4d0
+│   │           ├── config.yaml -> /home/azureuser/hunyuan_project/hf_cache/hub/models--tencent--Hunyuan3D-2/snapshots/4871c308210c5a6b9f691af01aa0c1250db2cc2c/config.json
+│   │           ├── hunyuan3d-delight-v2-0
+│   │           │   ├── feature_extractor
+│   │           │   │   └── preprocessor_config.json -> ../../../../blobs/fb1692ff11ed6b3dee0634f577193bb23c0d37ec
+│   │           │   ├── model_index.json -> ../../../blobs/2f76d0d3f6e71b71c80b3d5e062506e79c476157
+│   │           │   ├── scheduler
+│   │           │   │   └── scheduler_config.json -> ../../../../blobs/3e2d05cdff18d85e17e23bc67d638fc36e9fec28
+│   │           │   ├── text_encoder
+│   │           │   │   ├── config.json -> ../../../../blobs/8d1412e50d46389d40b29f824034ff4ba4f973ca
+│   │           │   │   └── model.safetensors -> ../../../../blobs/bc1827c465450322616f06dea41596eac7d493f4e95904dcb51f0fc745c4e13f
+│   │           │   ├── tokenizer
+│   │           │   │   ├── merges.txt -> ../../../../blobs/76e821f1b6f0a9709293c3b6b51ed90980b3166b
+│   │           │   │   ├── special_tokens_map.json -> ../../../../blobs/eaf8780e3c90b1af01a8574bf8596a9acebe6858
+│   │           │   │   ├── tokenizer_config.json -> ../../../../blobs/bd2abe19377557ff5771584921f9b65fa041fef0
+│   │           │   │   └── vocab.json -> ../../../../blobs/469be27c5c010538f845f518c4f5e8574c78f7c8
+│   │           │   ├── unet
+│   │           │   │   ├── config.json -> ../../../../blobs/d41e4dd1c7c732b4b3bd3cd62994a3342e4d1757
+│   │           │   │   └── diffusion_pytorch_model.safetensors -> ../../../../blobs/0ce61d15a43d11ba19079ab8f24dfce78b876d3f5291470079ef64b17e08ca58
+│   │           │   └── vae
+│   │           │       ├── config.json -> ../../../../blobs/c5f3fb60380d78f4860c3dd057a1ce99882a3365
+│   │           │       └── diffusion_pytorch_model.safetensors -> ../../../../blobs/3e4c08995484ee61270175e9e7a072b66a6e4eeb5f0c266667fe1f45b90daf9a
+│   │           ├── hunyuan3d-dit-v2-0
+│   │           │   ├── config.yaml -> ../../../blobs/62393f4f028edeccc229fdf6c421866bbd9eb18d
+│   │           │   ├── model.ckpt -> ../../../blobs/39c2a6bf54f5674f2001b763d8e15b773fbda24604b3911544d09846496bc972
+│   │           │   ├── model.safetensors -> ../../../blobs/360bc281fc956d4acac0c3d36d5ec0ebf8cdddbf4b8892e894d12419388d479b
+│   │           │   └── model_fp16.ckpt -> ../../../blobs/39c2a6bf54f5674f2001b763d8e15b773fbda24604b3911544d09846496bc972
+│   │           ├── hunyuan3d-dit-v2-0-fast
+│   │           │   ├── config.yaml -> ../../../blobs/9458056e37210d887a3088a181994de9f1625ac4
+│   │           │   ├── model.fp16.ckpt -> ../../../blobs/0feff0c6123794ba0d72e0a746075169dee66e86bce69193a99601cbfc3147a9
+│   │           │   └── model.fp16.safetensors -> ../../../blobs/fcf91f29922270b4cce5f266099b306c6e140f2a2382a81fc5e47752d4d41e85
+│   │           └── hunyuan3d-paint-v2-0
+│   │               ├── feature_extractor
+│   │               │   └── preprocessor_config.json -> ../../../../blobs/5294955ff7801083f720b34b55d0f1f51313c5c5
+│   │               ├── model_index.json -> ../../../blobs/305f80397ec06965b84fa1b6c12682a84b8f873d
+│   │               ├── scheduler
+│   │               │   └── scheduler_config.json -> ../../../../blobs/e2cca4b978fc3b95f8431fec292c2c289d8e1515
+│   │               ├── text_encoder
+│   │               │   ├── config.json -> ../../../../blobs/f9ac7c0b3b341525cd1b65e1a715128fee97b25c
+│   │               │   └── pytorch_model.bin -> ../../../../blobs/c3e254d7b61353497ea0be2c4013df4ea8f739ee88cffa0ba58cd085459ed565
+│   │               ├── tokenizer
+│   │               │   ├── merges.txt -> ../../../../blobs/76e821f1b6f0a9709293c3b6b51ed90980b3166b
+│   │               │   ├── special_tokens_map.json -> ../../../../blobs/ae0c5be6f35217e51c4c000fd325d8de0294e99c
+│   │               │   ├── tokenizer_config.json -> ../../../../blobs/65d055d1103982d6ba7cf1c5c876a9413077daf5
+│   │               │   └── vocab.json -> ../../../../blobs/469be27c5c010538f845f518c4f5e8574c78f7c8
+│   │               ├── unet
+│   │               │   ├── config.json -> ../../../../blobs/0fa07f924dabbf7517dc62af845cd31573bc09e3
+│   │               │   ├── diffusion_pytorch_model.bin -> ../../../../blobs/2efb4438e649e1ce152822dde082defe062cdd320bb9f1a27b9a4715d9c56e1a
+│   │               │   ├── diffusion_pytorch_model.safetensors -> ../../../../blobs/1c5ce434ba976b30bbb51a080917ecd39f8d8761691887b5df3be765ef4bd9e9
+│   │               │   └── modules.py -> ../../../../blobs/d10df9be332265887c69d94bf69bd8cb90eddba7
+│   │               └── vae
+│   │                   ├── config.json -> ../../../../blobs/9421ac5a7caf02657fa559cffe7c73a47572cd64
+│   │                   ├── diffusion_pytorch_model.bin -> ../../../../blobs/1b4889b6b1d4ce7ae320a02dedaeff1780ad77d415ea0d744b476155c6377ddc
+│   │                   └── diffusion_pytorch_model.safetensors -> ../../../../blobs/abcec86e499e1ce9f05d1630725d386dc533b61fe0947ab034f07f89042e7a61
+│   ├── version.txt
+│   └── version_diffusers_cache.txt
+└── modules
+    ├── __init__.py
+    └── diffusers_modules
+        ├── __init__.py
+        ├── __pycache__
+        │   └── __init__.cpython-310.pyc
+        └── local
+            ├── __init__.py
+            ├── __pycache__
+            │   ├── __init__.cpython-310.pyc
+            │   ├── modules.cpython-310.pyc
+            │   └── pipeline.cpython-310.pyc
+            ├── modules.py
+            ├── pipeline.py
+            └── unet
+                ├── __pycache__
+                │   └── modules.cpython-310.pyc
+                └── modules.py
+
+31 directories, 106 files

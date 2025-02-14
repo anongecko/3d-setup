@@ -23,4 +23,4 @@
 # by Tencent in accordance with TENCENT HUNYUAN COMMUNITY LICENSE AGREEMENT.
 
 
-from .pipelines import Hunyuan3DPaintPipeline, Hunyuan3DTexGenConfig
+from .Hunyuan3DPaintPipeline import HunyuanPaintPipeline, Hunyuan3DTexGenConfig

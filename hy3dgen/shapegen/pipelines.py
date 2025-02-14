@@ -27,12 +27,12 @@ import importlib
 import inspect
 import logging
 import os
+import yaml
 from typing import List, Optional, Union
 
 import numpy as np
 import torch
 import trimesh
-import yaml
 from PIL import Image
 from diffusers.utils.torch_utils import randn_tensor
 from tqdm import tqdm
@@ -133,7 +133,7 @@ def instantiate_from_config(config, **kwargs):
     instance = cls(**kwargs)
     return instance
 
-
+# Class definitions must come *before* they are used as base classes.
 class Hunyuan3DDiTPipeline:
     @classmethod
     def from_single_file(
@@ -141,7 +141,7 @@ class Hunyuan3DDiTPipeline:
         ckpt_path,
         config_path,
         device='cuda',
-        dtype=torch.float16,
+        dtype=torch.float32,  # Default to FP32
         use_safetensors=None,
         **kwargs,
     ):
@@ -200,7 +200,7 @@ class Hunyuan3DDiTPipeline:
         cls,
         model_path,
         device='cuda',
-        dtype=torch.float16,
+        dtype=torch.float32,  # Default to FP32
         use_safetensors=None,
         variant=None,
         subfolder='hunyuan3d-dit-v2-0',
@@ -253,7 +253,7 @@ class Hunyuan3DDiTPipeline:
         conditioner,
         image_processor,
         device='cuda',
-        dtype=torch.float16,
+        dtype=torch.float32,  # Default to FP32
         **kwargs
     ):
         self.vae = vae
@@ -288,24 +288,24 @@ class Hunyuan3DDiTPipeline:
                 un_cond_drop_main['additional'] = cond['additional']
 
                 def cat_recursive(a, b, c):
-                    if isinstance(a, torch.Tensor):
-                        return torch.cat([a, b, c], dim=0).to(self.dtype)
-                    out = {}
-                    for k in a.keys():
-                        out[k] = cat_recursive(a[k], b[k], c[k])
-                    return out
+                        if isinstance(a, torch.Tensor):
+                            return torch.cat([a, b, c], dim=0).to(self.dtype)
+                        out = {}
+                        for k in a.keys():
+                            out[k] = cat_recursive(a[k], b[k], c[k])
+                        return out
 
                 cond = cat_recursive(cond, un_cond_drop_main, un_cond)
             else:
                 un_cond = self.conditioner.unconditional_embedding(bsz)
 
                 def cat_recursive(a, b):
-                    if isinstance(a, torch.Tensor):
-                        return torch.cat([a, b], dim=0).to(self.dtype)
-                    out = {}
-                    for k in a.keys():
-                        out[k] = cat_recursive(a[k], b[k])
-                    return out
+                        if isinstance(a, torch.Tensor):
+                            return torch.cat([a, b], dim=0).to(self.dtype)
+                        out = {}
+                        for k in a.keys():
+                            out[k] = cat_recursive(a[k], b[k])
+                        return out
 
                 cond = cat_recursive(cond, un_cond)
         return cond
@@ -326,7 +326,6 @@ class Hunyuan3DDiTPipeline:
         if accepts_generator:
             extra_step_kwargs["generator"] = generator
         return extra_step_kwargs
-
     def prepare_latents(self, batch_size, dtype, device, generator, latents=None):
         shape = (batch_size, *self.vae.latent_shape)
         if isinstance(generator, list) and len(generator) != batch_size:
@@ -384,7 +383,7 @@ class Hunyuan3DDiTPipeline:
 
         half_dim = embedding_dim // 2
         emb = torch.log(torch.tensor(10000.0)) / (half_dim - 1)
-        emb = torch.exp(torch.arange(half_dim, dtype=dtype) * -emb)
+        emb = torch.exp(torch.arange(half_dim, dtype=dtype, device=w.device) * -emb) #Added device placement
         emb = w.to(dtype)[:, None] * emb[None, :]
         emb = torch.cat([torch.sin(emb), torch.cos(emb)], dim=1)
         if embedding_dim % 2 == 1:  # zero pad
@@ -405,10 +404,10 @@ class Hunyuan3DDiTPipeline:
         dual_guidance: bool = True,
         generator=None,
         box_v=1.01,
-        octree_resolution=384,
-        mc_level=-1 / 512,
-        num_chunks=8000,
+        octree_resolution: int = 512,  # Increased default resolution, now controllable
+        mc_level: float = 0.0,          # keep mc_level controllable
         mc_algo='mc',
+        num_chunks=8000,
         output_type: Optional[str] = "trimesh",
         enable_pbar=True,
         **kwargs,
@@ -419,7 +418,7 @@ class Hunyuan3DDiTPipeline:
         device = self.device
         dtype = self.dtype
         do_classifier_free_guidance = guidance_scale >= 0 and \
-                                      getattr(self.model, 'guidance_cond_proj_dim', None) is None
+                                    getattr(self.model, 'guidance_cond_proj_dim', None) is None
         dual_guidance = dual_guidance_scale >= 0 and dual_guidance
 
         image, mask = self.prepare_image(image)
@@ -450,12 +449,11 @@ class Hunyuan3DDiTPipeline:
                 latent_model_input = torch.cat([latents] * (3 if dual_guidance else 2))
             else:
                 latent_model_input = latents
-            latent_model_input = self.scheduler.scale_model_input(latent_model_input, t)
 
-            # predict the noise residual
-            timestep_tensor = torch.tensor([t], dtype=t_dtype, device=device)
-            timestep_tensor = timestep_tensor.expand(latent_model_input.shape[0])
-            noise_pred = self.model(latent_model_input, timestep_tensor, cond, guidance_cond=guidance_cond)
+            # NOTE: we assume model get timesteps ranged from 0 to 1
+            timestep = torch.tensor([t], dtype=t_dtype, device=device)
+            timestep = timestep.expand(latent_model_input.shape[0])
+            noise_pred = self.model(latent_model_input, timestep, cond, guidance_cond=guidance_cond)
 
             # no drop, drop clip, all drop
             if do_classifier_free_guidance:
@@ -486,7 +484,7 @@ class Hunyuan3DDiTPipeline:
 
     def _export(self, latents, output_type, box_v, mc_level, num_chunks, octree_resolution, mc_algo):
         if not output_type == "latent":
-            latents = 1. / self.vae.scale_factor * latents
+            latents = 1. / self.vae.config.scaling_factor * latents  # Corrected scaling factor access
             latents = self.vae(latents)
             outputs = self.vae.latents2mesh(
                 latents,
@@ -506,6 +504,7 @@ class Hunyuan3DDiTPipeline:
 
 
 class Hunyuan3DDiTFlowMatchingPipeline(Hunyuan3DDiTPipeline):
+    _load_connected_pipes = True #Needed for from_pretrained to work correctly
 
     @torch.no_grad()
     def __call__(
@@ -518,8 +517,8 @@ class Hunyuan3DDiTFlowMatchingPipeline(Hunyuan3DDiTPipeline):
         guidance_scale: float = 7.5,
         generator=None,
         box_v=1.01,
-        octree_resolution=384,
-        mc_level=0.0,
+        octree_resolution: int = 512,  # Increased default resolution, controllable
+        mc_level: float = 0.0,          # Keep this controllable
         mc_algo='mc',
         num_chunks=8000,
         output_type: Optional[str] = "trimesh",
@@ -541,28 +540,28 @@ class Hunyuan3DDiTFlowMatchingPipeline(Hunyuan3DDiTPipeline):
             image=image,
             mask=mask,
             do_classifier_free_guidance=do_classifier_free_guidance,
-            dual_guidance=False,
+            dual_guidance=False,  # Removed dual_guidance from here
         )
         batch_size = image.shape[0]
 
-        # 5. Prepare timesteps
+        t_dtype = torch.long  # Corrected to long
         # NOTE: this is slightly different from common usage, we start from 0.
         sigmas = np.linspace(0, 1, num_inference_steps) if sigmas is None else sigmas
         timesteps, num_inference_steps = retrieve_timesteps(
             self.scheduler,
             num_inference_steps,
             device,
-            sigmas=sigmas,
+            sigmas=sigmas,  # Use sigmas for flow matching
         )
         latents = self.prepare_latents(batch_size, dtype, device, generator)
 
         guidance = None
         if hasattr(self.model, 'guidance_embed') and \
-            self.model.guidance_embed is True:
+                self.model.guidance_embed is True:
             guidance = torch.tensor([guidance_scale] * batch_size, device=device, dtype=dtype)
             print(f'Using guidance embed with scale {guidance_scale}')
 
-        for i, t in enumerate(tqdm(timesteps, disable=not enable_pbar, desc="Diffusion Sampling:")):
+        for i, t in enumerate(tqdm(timesteps, disable=not enable_pbar, desc="Diffusion Sampling:", leave=False)):
             # expand the latents if we are doing classifier free guidance
             if do_classifier_free_guidance:
                 latent_model_input = torch.cat([latents] * 2)
@@ -571,7 +570,7 @@ class Hunyuan3DDiTFlowMatchingPipeline(Hunyuan3DDiTPipeline):
 
             # NOTE: we assume model get timesteps ranged from 0 to 1
             timestep = t.expand(latent_model_input.shape[0]).to(
-                latents.dtype) / self.scheduler.config.num_train_timesteps
+                dtype=torch.float32, device=latent_model_input.device) / self.scheduler.config.num_train_timesteps # Ensure float, correct device
             noise_pred = self.model(latent_model_input, timestep, cond, guidance=guidance)
 
             if do_classifier_free_guidance:
@@ -579,7 +578,7 @@ class Hunyuan3DDiTFlowMatchingPipeline(Hunyuan3DDiTPipeline):
                 noise_pred = noise_pred_uncond + guidance_scale * (noise_pred_cond - noise_pred_uncond)
 
             # compute the previous noisy sample x_t -> x_t-1
-            outputs = self.scheduler.step(noise_pred, t, latents)
+            outputs = self.scheduler.step(noise_pred, t, latents, **extra_step_kwargs)
             latents = outputs.prev_sample
 
             if callback is not None and i % callback_steps == 0:
